@@ -344,24 +344,25 @@ const generateHourlyReport = async (fromDate, toDate) => {
     
     // First get hourly summary
     const summaryQuery = `
-        SELECT 
-            CONVERT(DATE, ih.CreatedDateTime) as SaleDate,
+         SELECT 
+            CAST(ih.CreatedDateTime AS DATE) as SaleDate,
             DATEPART(HOUR, ih.CreatedDateTime) as SaleHour,
             COUNT(DISTINCT ih.InvoiceId) as Transactions,
             SUM(il.Quantity) as TotalItems,
             SUM(ih.GrandTotal) as TotalAmount
         FROM invoiceheader ih
         INNER JOIN invoiceLine il ON ih.InvoiceId = il.InvoiceId
-        WHERE ih.CreatedDateTime BETWEEN @fromDate AND @toDate
-            AND ih.IsVoided = 0
-        GROUP BY CONVERT(DATE, ih.CreatedDateTime), DATEPART(HOUR, ih.CreatedDateTime)
-        ORDER BY SaleDate, SaleHour
+        WHERE (@fromDate IS NULL OR CAST(ih.CreatedDateTime AS DATE) >= CAST(@fromDate AS DATE))
+          AND (@toDate IS NULL OR CAST(ih.CreatedDateTime AS DATE) <= CAST(@toDate AS DATE))
+          AND ih.IsVoided = 0
+        GROUP BY CAST(ih.CreatedDateTime AS DATE), DATEPART(HOUR, ih.CreatedDateTime)
+        ORDER BY SaleDate, SaleHour;
     `;
 
     // Then get detailed items for each hour
     const itemsQuery = `
-        SELECT 
-            CONVERT(DATE, ih.CreatedDateTime) as SaleDate,
+       SELECT 
+            CAST(ih.CreatedDateTime AS DATE) as SaleDate,
             DATEPART(HOUR, ih.CreatedDateTime) as SaleHour,
             il.ItemName,
             il.Quantity,
@@ -372,14 +373,15 @@ const generateHourlyReport = async (fromDate, toDate) => {
             il.Tax
         FROM invoiceheader ih
         INNER JOIN invoiceLine il ON ih.InvoiceId = il.InvoiceId
-        WHERE ih.CreatedDateTime BETWEEN @fromDate AND @toDate
-            AND ih.IsVoided = 0
-        ORDER BY SaleDate, SaleHour, ih.CreatedDateTime
+        WHERE (@fromDate IS NULL OR CAST(ih.CreatedDateTime AS DATE) >= CAST(@fromDate AS DATE))
+          AND (@toDate IS NULL OR CAST(ih.CreatedDateTime AS DATE) <= CAST(@toDate AS DATE))
+          AND ih.IsVoided = 0
+        ORDER BY SaleDate, SaleHour, ih.CreatedDateTime;
     `;
 
     const request = pool.request();
-    request.input('fromDate', sql.Date, new Date(fromDate));
-    request.input('toDate', sql.Date, new Date(toDate));
+    request.input('fromDate', sql.Date, fromDate || null);
+    request.input('toDate', sql.Date, toDate || null);
 
     const [summaryResult, itemsResult] = await Promise.all([
         request.query(summaryQuery),
