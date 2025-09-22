@@ -1,0 +1,4 @@
+[dotenv@17.0.1] injecting env (6) from .env – [tip] encrypt with dotenvx: https://dotenvx.com
+[dotenv@17.0.1] injecting env (0) from .env – [tip] encrypt with dotenvx: https://dotenvx.com
+Server running on http://localhost:\\.\pipe\2ee0ddf0-b08d-4e92-bfd7-c66fea504dcb
+✅ MSSQL Database Connected Successfully

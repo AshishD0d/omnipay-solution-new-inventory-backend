@@ -1,0 +1,3 @@
+[dotenv@17.2.2] injecting env (0) from .env -- tip: 📡 observe env with Radar: https://dotenvx.com/radar
+[dotenv@17.2.2] injecting env (0) from .env -- tip: ⚙️  override existing env vars with { override: true }
+✅ Server is running on port \\.\pipe\64c95c60-e32d-47ba-a2d9-f5de3a3c6fe0...

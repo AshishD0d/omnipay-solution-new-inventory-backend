@@ -1,0 +1,6 @@
+(node:7540) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+❌ Registration error: Error: Credential ID was not base64url-encoded
+    at verifyRegistrationResponse (D:\HM\Github Repos\reward leatest\OmniRewardAPI\node_modules\@simplewebauthn\server\script\registration\verifyRegistrationResponse.js:45:15)
+    at verifyRegistration (D:\HM\Github Repos\reward leatest\OmniRewardAPI\controllers\passkeyController.js:284:32)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)

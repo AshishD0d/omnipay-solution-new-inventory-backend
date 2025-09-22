@@ -1,0 +1,5 @@
+[dotenv@17.2.2] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+[dotenv@17.2.2] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+[dotenv@17.2.2] injecting env (0) from .env -- tip: ⚙️  suppress all logs with { quiet: true }
+✅ Server is running on port \\.\pipe\7420f7ef-0409-4e02-b065-31d1abdb730f...
+✅ Database Connected Successfully

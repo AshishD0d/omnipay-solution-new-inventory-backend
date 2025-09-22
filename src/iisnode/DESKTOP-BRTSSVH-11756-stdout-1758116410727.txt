@@ -1,0 +1,5 @@
+[dotenv@17.2.2] injecting env (0) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+[dotenv@17.2.2] injecting env (0) from .env -- tip: 📡 auto-backup env with Radar: https://dotenvx.com/radar
+[dotenv@17.2.2] injecting env (0) from .env -- tip: ⚙️  suppress all logs with { quiet: true }
+✅ Server is running on port \\.\pipe\7073da05-805d-450a-9d7b-a07a4256dbd6...
+✅ Database Connected Successfully

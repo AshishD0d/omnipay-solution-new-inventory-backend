@@ -1,0 +1,5 @@
+[dotenv@17.2.2] injecting env (0) from .env -- tip: 📡 observe env with Radar: https://dotenvx.com/radar
+[dotenv@17.2.2] injecting env (0) from .env -- tip: ⚙️  override existing env vars with { override: true }
+[dotenv@17.2.2] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+✅ Server is running on port \\.\pipe\5fcd11fa-460f-4c4d-9198-35d1f2c36c7a...
+✅ Database Connected Successfully

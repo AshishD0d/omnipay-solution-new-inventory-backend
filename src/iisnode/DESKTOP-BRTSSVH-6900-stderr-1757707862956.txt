@@ -1,0 +1,13 @@
+❌ Database Connection Failed: The "config.server" property is required and must be of type string.
+Application has thrown an uncaught exception and is terminated:
+TypeError: The "config.server" property is required and must be of type string.
+    at new Connection (D:\HM\new inventory backend\node_modules\tedious\lib\connection.js:276:13)
+    at D:\HM\new inventory backend\node_modules\mssql\lib\tedious\connection-pool.js:78:19
+    at new Promise (<anonymous>)
+    at ConnectionPool._poolCreate (D:\HM\new inventory backend\node_modules\mssql\lib\tedious\connection-pool.js:67:12)
+    at ConnectionPool._connect (D:\HM\new inventory backend\node_modules\mssql\lib\base\connection-pool.js:446:10)
+    at D:\HM\new inventory backend\node_modules\mssql\lib\base\connection-pool.js:418:19
+    at new Promise (<anonymous>)
+    at ConnectionPool.connect (D:\HM\new inventory backend\node_modules\mssql\lib\base\connection-pool.js:417:12)
+    at Object.<anonymous> (D:\HM\new inventory backend\src\config\db.js:20:4)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)

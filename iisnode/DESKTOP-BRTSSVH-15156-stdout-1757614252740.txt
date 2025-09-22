@@ -1,0 +1,43 @@
+[dotenv@17.0.1] injecting env (6) from .env – [tip] encrypt with dotenvx: https://dotenvx.com
+[dotenv@17.0.1] injecting env (0) from .env – [tip] encrypt with dotenvx: https://dotenvx.com
+Server running on http://localhost:\\.\pipe\1085cdfb-d03c-4132-8906-0e85210c2f05
+✅ MSSQL Database Connected Successfully
+Raw request body: {
+  "Email": "pareshomnipay@gmail.com",
+  "id": "WEFFZlU4X2NoT0kzaEdqbXJGdmFodw",
+  "rawId": "WEFFZlU4X2NoT0kzaEdqbXJGdmFodw",
+  "type": "public-key",
+  "response": {
+    "attestationObject": "bzJObWJYUmtibTl1WldkaGRIUlRkRzEwb0doaGRYUm9SR0YwWVZpVXJwZEtDem52R1N4VTJQZnlTbFBOYTV5anZxMVBzc2RqbjNpMUJ5QXhnMmxkQUFBQUFPcWJqV1pOQVIwaFBPUzJ0SXkxZGRRQUVGd0JIMVBQM0lUaU40Um81cXhiMm9lbEFRSURKaUFCSVZnZ2h3eHUzd0VqMjc5VHd0ZFJueW8xaEVBdUtnRDM1N1FKemIyTnZQVDRNQlFpV0NDMkZ4WldKcEVJczBpUTRnLUQ2M1NZbG5OQVZRTzRYQ2RYenQxbW9PRG9rZw",
+    "clientDataJSON": "ZXlKMGVYQmxJam9pZDJWaVlYVjBhRzR1WTNKbFlYUmxJaXdpWTJoaGJHeGxibWRsSWpvaU9XSjRWWEJCY1ZkQ1lXTk9OSEpRUkRkblEyVkxZbWhYTWtoME4yeDJkVk0zYkhGb09XdEVUM3BoY3lJc0ltOXlhV2RwYmlJNkltRnVaSEp2YVdRNllYQnJMV3RsZVMxb1lYTm9PblpaVVdoWmVIRnpkakpOYVMxV0xXMUxZVjl4YldGamVGZDBTV1oyV1c1WlpVZHJZbTVFV21OcFZtTWlMQ0poYm1SeWIybGtVR0ZqYTJGblpVNWhiV1VpT2lKamIyMHViMjF1YVhCaGVTNXlaWGRoY21SelgyRndjR3hwWTJGMGFXOXVYMjl0Ym1sd1lYa2lmUQ"
+  },
+  "transports": [
+    "internal",
+    "hybrid"
+  ]
+}
+Types:
+id: string WEFFZlU4X2NoT0kzaEdq
+rawId: string WEFFZlU4X2NoT0kzaEdq
+attestationObject length: 318
+clientDataJSON length: 398
+🔥 Incoming GET request to /
+Raw request body: {
+  "Email": "pareshomnipay@gmail.com",
+  "id": "S1NlYkhfZ2lhYnA2YU1oTGM5MC1IUQ",
+  "rawId": "S1NlYkhfZ2lhYnA2YU1oTGM5MC1IUQ",
+  "type": "public-key",
+  "response": {
+    "attestationObject": "bzJObWJYUmtibTl1WldkaGRIUlRkRzEwb0doaGRYUm9SR0YwWVZpVXJwZEtDem52R1N4VTJQZnlTbFBOYTV5anZxMVBzc2RqbjNpMUJ5QXhnMmxkQUFBQUFPcWJqV1pOQVIwaFBPUzJ0SXkxZGRRQUVDa25teF80SW1tNmVtaklTM1BkUGgybEFRSURKaUFCSVZnZ09mUFFELTFRU0NRemRiUXg4eUMyQVUzTlM3TVhyR2ZDVnQwNWY4bmh1X2NpV0NCd2pmRUNkMWprVVRIcnAweTN6eUdhVXlYTmhacVBCZzhOOHVIaERKaEcyQQ",
+    "clientDataJSON": "ZXlKMGVYQmxJam9pZDJWaVlYVjBhRzR1WTNKbFlYUmxJaXdpWTJoaGJHeGxibWRsSWpvaWRGVkJUVmszYURaV00xcFBOMUo1YnpKaGN6aDVXa2hmUmtodFVEQllObWhuUW1WSFNuVkxXVTlVVlNJc0ltOXlhV2RwYmlJNkltRnVaSEp2YVdRNllYQnJMV3RsZVMxb1lYTm9PblpaVVdoWmVIRnpkakpOYVMxV0xXMUxZVjl4YldGamVGZDBTV1oyV1c1WlpVZHJZbTVFV21OcFZtTWlMQ0poYm1SeWIybGtVR0ZqYTJGblpVNWhiV1VpT2lKamIyMHViMjF1YVhCaGVTNXlaWGRoY21SelgyRndjR3hwWTJGMGFXOXVYMjl0Ym1sd1lYa2lmUQ"
+  },
+  "transports": [
+    "internal",
+    "hybrid"
+  ]
+}
+Types:
+id: string S1NlYkhfZ2lhYnA2YU1o
+rawId: string S1NlYkhfZ2lhYnA2YU1o
+attestationObject length: 318
+clientDataJSON length: 398

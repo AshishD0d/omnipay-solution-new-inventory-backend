@@ -1,0 +1,10 @@
+[dotenv@17.0.1] injecting env (6) from .env – [tip] encrypt with dotenvx: https://dotenvx.com
+[dotenv@17.0.1] injecting env (0) from .env – [tip] encrypt with dotenvx: https://dotenvx.com
+Server running on http://localhost:\\.\pipe\e8d6792a-c1e8-49f3-bba0-7a3edcdabfb0
+✅ MSSQL Database Connected Successfully
+Raw request body (short): {
+  Email: 'ghjjhg@gmail.com',
+  idSample: 'a3UzRE5rXzVzNDcxdS1rYmRF',
+  rawIdSample: 'a3UzRE5rXzVzNDcxdS1rYmRF'
+}
+rawIdBuf.length: 22 fixedId sample: a3UzRE5rXzVzNDcxdS1rYmRF

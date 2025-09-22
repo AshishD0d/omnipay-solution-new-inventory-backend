@@ -1,0 +1,10 @@
+(node:1984) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Base64url decode failed: bzJObWJYUmtibTl1WldkaGRIUlRkRzEwb0doaGRYUm9SR0YwWVZpVXJwZEtDem52R1N4VTJQZnlTbFBOYTV5anZxMVBzc2RqbjNpMUJ5QXhnMmxkQUFBQUFPcWJqV1pOQVIwaFBPUzJ0SXkxZGRRQUVBcVNvR3BxYlZ0ZjhSLTUzZ2o3UG1TbEFRSURKaUFCSVZnZzlFTmRFbU9CajFRVlA4ai01a0FicmN4YzRrMThqOGlFaFpleG1WYkpnRElpV0NENXR1azdfM2RZWnlIWEtoLXVDVUdWOVpxN0lPR1VudWpCZ3BzVFU4WVExdw TypeError: Cannot read properties of undefined (reading 'toBuffer')
+    at toBuffer (D:\HM\Github Repos\reward leatest\OmniRewardAPI\controllers\passkeyController.js:197:22)
+    at verifyRegistration (D:\HM\Github Repos\reward leatest\OmniRewardAPI\controllers\passkeyController.js:259:31)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+❌ Registration error: Error: Invalid base64url string
+    at toBuffer (D:\HM\Github Repos\reward leatest\OmniRewardAPI\controllers\passkeyController.js:200:11)
+    at verifyRegistration (D:\HM\Github Repos\reward leatest\OmniRewardAPI\controllers\passkeyController.js:259:31)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)

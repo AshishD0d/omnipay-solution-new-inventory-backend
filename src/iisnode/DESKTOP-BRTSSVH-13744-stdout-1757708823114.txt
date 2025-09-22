@@ -1,0 +1,5 @@
+[dotenv@17.2.2] injecting env (0) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+[dotenv@17.2.2] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+[dotenv@17.2.2] injecting env (0) from .env -- tip: 📡 auto-backup env with Radar: https://dotenvx.com/radar
+✅ Server is running on port \\.\pipe\b863d564-7a5e-44e7-b0f2-773ae6a07766...
+✅ Database Connected Successfully

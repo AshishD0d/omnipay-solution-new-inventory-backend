@@ -1,0 +1,23 @@
+[dotenv@17.0.1] injecting env (6) from .env – [tip] encrypt with dotenvx: https://dotenvx.com
+[dotenv@17.0.1] injecting env (0) from .env – [tip] encrypt with dotenvx: https://dotenvx.com
+Server running on http://localhost:\\.\pipe\449fb95a-6309-45aa-9cc3-1e68f3b47616
+✅ MSSQL Database Connected Successfully
+➡️ Raw request body: {
+  "Email": "pareshomnipay@gmail.com",
+  "id": "Mkp5VWRpZnRQWjNXRlFydjRXZXAtQQ",
+  "rawId": "Mkp5VWRpZnRQWjNXRlFydjRXZXAtQQ",
+  "type": "public-key",
+  "response": {
+    "attestationObject": "bzJObWJYUmtibTl1WldkaGRIUlRkRzEwb0doaGRYUm9SR0YwWVZpVXJwZEtDem52R1N4VTJQZnlTbFBOYTV5anZxMVBzc2RqbjNpMUJ5QXhnMmxkQUFBQUFPcWJqV1pOQVIwaFBPUzJ0SXkxZGRRQUVOaWNsSFluN1QyZDFoVUs3LUZucWZpbEFRSURKaUFCSVZnZ1hLam5ER0E2SkZLalRvRUpBWHI4ZU9mSFdhMWs1bGU3NDNQcktnVU9UMDhpV0NEdWF0OFF4dnU0OUJUcnRVU0hKYkN2c1B0WFBDLVR2dWRvemFsa3dFLWdudw",
+    "clientDataJSON": "ZXlKMGVYQmxJam9pZDJWaVlYVjBhRzR1WTNKbFlYUmxJaXdpWTJoaGJHeGxibWRsSWpvaVVITXhaREZrU1MweWJ6TldlR013VTJwZmVUUlhaV0Z3ZFRaSlpYQldTVjlqYzA0d1ptWnVRak4wTkNJc0ltOXlhV2RwYmlJNkltRnVaSEp2YVdRNllYQnJMV3RsZVMxb1lYTm9PblpaVVdoWmVIRnpkakpOYVMxV0xXMUxZVjl4YldGamVGZDBTV1oyV1c1WlpVZHJZbTVFV21OcFZtTWlMQ0poYm1SeWIybGtVR0ZqYTJGblpVNWhiV1VpT2lKamIyMHViMjF1YVhCaGVTNXlaWGRoY21SelgyRndjR3hwWTJGMGFXOXVYMjl0Ym1sd1lYa2lmUQ"
+  },
+  "transports": [
+    "internal",
+    "hybrid"
+  ]
+}
+Types:
+id: string Mkp5VWRpZnRQWjNXRlFy
+rawId: string Mkp5VWRpZnRQWjNXRlFy
+attestationObject length: 318
+clientDataJSON length: 398

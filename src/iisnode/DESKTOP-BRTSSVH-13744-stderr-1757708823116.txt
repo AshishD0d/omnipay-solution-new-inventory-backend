@@ -1,0 +1,5 @@
+Login error: Error: secretOrPrivateKey must have a value
+    at module.exports [as sign] (D:\HM\new inventory backend\node_modules\jsonwebtoken\sign.js:111:20)
+    at Object.generateToken (D:\HM\new inventory backend\src\services\authservice.js:29:20)
+    at login (D:\HM\new inventory backend\src\controllers\authcontroller.js:14:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
