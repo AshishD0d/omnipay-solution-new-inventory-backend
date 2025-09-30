@@ -1,4 +1,5 @@
 const productService = require("../services/productService");
+const { generateItemsPDF } = require("../utils/pdfService");
 
 // Controller to get all products
 const getAllProducts = async (req, res) => {
@@ -254,6 +255,33 @@ const productNameandID = async (req, res) => {
   }
 };
 
+// Controller to generate PDF of all items
+const allItemPDF = async (req, res) => {
+  try {
+    const items = await productService.generateAllItemsPDF(); 
+
+    const pdfBuffer = await generateItemsPDF(items); // pass array directly
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename="items_report_${Date.now()}.pdf"`
+    );
+    res.status(200).send(pdfBuffer);
+      
+
+    // res.status(200).json({
+    //   success: true,
+    //   message: "Items fetched successfully",
+    //   totalRecords: items.length,
+    //   data: items,
+    // });
+  } catch (err) {
+    console.error("Error generating PDF:", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+
 module.exports = {
   getAllProducts,
   insertProduct,
@@ -263,4 +291,5 @@ module.exports = {
   getProductById,
   deleteProduct,
   productNameandID,
+  allItemPDF,
 };

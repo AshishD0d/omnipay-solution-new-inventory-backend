@@ -1,4 +1,5 @@
 const salesService = require("../services/salesService");
+const { generateFlashReportPDF, generateHourlyReportPDF } = require("../utils/pdfService");
 const PDFDocument = require("pdfkit");
 
 // Controller to get today's and yesterday's sales count
@@ -11,8 +12,8 @@ const todayYesterdaySales = async (req, res) => {
         todayYesterdaySales.length > 0
           ? "Sales data fetched successfully"
           : "No sales data found",
-      TodaySalesCount: todayYesterdaySales.TodaySales,
-      YesterdaySalesCount: todayYesterdaySales.YesterdaySales,
+      TodaySalesCount: parseFloat(todayYesterdaySales.TodaySales.toFixed(2)),
+      YesterdaySalesCount: parseFloat(todayYesterdaySales.YesterdaySales.toFixed(2)),
     });
   } catch (err) {
     console.error("Error fetching sales data:", err);
@@ -67,11 +68,13 @@ const salesHistoryData = async (req, res) => {
 const downloadReport = async (req, res) => {
   try {
     const { fromDate, toDate, reportType } = req.body;
+    // console.log("body params:", req.body);
     const salesHistory = await salesService.downloadgetSalesHistory(
       fromDate,
       toDate,
       reportType
     );
+    // console.log("salesHistory:", salesHistory);
 
     if (!salesHistory || salesHistory.length === 0) {
       return res.status(200).json({
@@ -185,20 +188,13 @@ const downloadReport = async (req, res) => {
           val = Number(val || 0).toFixed(2);
         }
         if (h.key === "CreatedDateTime") {
-          const d = new Date(val);
-          const yyyy = d.getFullYear();
-          const mm = String(d.getMonth() + 1).padStart(2, "0");
-          const dd = String(d.getDate()).padStart(2, "0");
-          const hh = String(d.getHours()).padStart(2, "0");
-          const min = String(d.getMinutes()).padStart(2, "0");
-          const ss = String(d.getSeconds()).padStart(2, "0");
-          val = `${yyyy}-${mm}-${dd} ${hh}:${min}:${ss}`;
+          val = val ? new Date(val).toISOString() : "";
         }
         if (h.key === "IsVoided") {
           val = val ? "Yes" : "No";
         }
 
-        // Cell border
+        // Cell border...
         doc
           .rect(x, y - 2, colWidths[i], rowHeight + 4)
           .strokeColor("#D5DBDB")
@@ -256,16 +252,24 @@ const activeSales = async (req, res) => {
 // Controller to generate flash report
 const flashReport = async (req, res) => {
   try {
-    let { fromDate = null, toDate = null } = req.body;
-
-    // if user didn't pass dates → send null to SP
-    // if (!fromDate) fromDate = null;
-    // if (!toDate) toDate = null;
-
+    const { fromDate, toDate } = req.body;
     const report = await salesService.getFlashReport(fromDate, toDate);
+
+    // const pdfBuffer = await generateFlashReportPDF({
+    //   ...report,
+    //   fromDate,
+    //   toDate,
+    // });
+    // res.setHeader("Content-Type", "application/pdf");
+    // res.setHeader("Content-Disposition",`attachment; filename="flash_report_${Date.now()}.pdf"`);
+    // res.status(200).send(pdfBuffer);
+    // res.status(200).end();
 
     res.status(200).json({
       success: true,
+      message: Object.keys(report).length > 0
+          ? "Flash report generated successfully"
+          : "No data found for the given date range",
       data: report,
     });
   } catch (error) {
@@ -276,23 +280,64 @@ const flashReport = async (req, res) => {
 
 // Controller to generate hourly report
 const hourlyReport = async (req, res) => {
-    try {
-        let { fromDate, toDate } = req.body;
-        const report = await salesService.generateHourlyReport(fromDate, toDate);
-        res.json({
-            success: true,
-            message: report.length > 0 ? 'Hourly report generated successfully' : 'No data found for the given date range',
-            data: report,
-            fromDate: fromDate,
-            toDate: toDate
-        });
-    } catch (error) {
-        console.error('Error generating hourly report:', error);
-        res.status(500).json({
-            error: 'Internal server error',
-            message: error.message
-        });
-    }
+  try {
+    let { fromDate, toDate } = req.body;
+    const report = await salesService.generateHourlyReport(fromDate, toDate);
+    // const pdfBuffer = await generateHourlyReportPDF({      
+    //   data: report,
+    //   fromDate,
+    //   toDate,
+    // });
+    // res.setHeader("Content-Type", "application/pdf");
+    // res.setHeader("Content-Disposition",`attachment; filename="hourly_report_${Date.now()}.pdf"`);
+    // res.status(200).send(pdfBuffer);
+    // res.status(200).end();
+
+    res.json({
+      success: true,
+      message:
+        report.length > 0
+          ? "Hourly report generated successfully"
+          : "No data found for the given date range",
+      data: report,
+      fromDate: fromDate,
+      toDate: toDate,
+    });
+  } catch (error) {
+    console.error("Error generating hourly report:", error);
+    res.status(500).json({
+      error: "Internal server error",
+      message: error.message,
+    });
+  }
+};
+
+// Controller to get per item sales history
+const perItemSalesHistory = async (req, res) => {
+  try {
+    const { fromDate, toDate, invoiceCode, itemId } = req.body;
+
+    const salesHistory = await salesService.getPerItemSalesHistory({
+      fromDate: fromDate || null,
+      toDate: toDate || null,
+      invoiceCode: invoiceCode || null,
+      itemId: itemId || null,
+    });
+    res.json({
+      success: true,
+      message:
+        salesHistory.totalRecords > 0
+          ? "Per item sales history fetched successfully"
+          : "No per item sales history found",
+      totalRecords: salesHistory.totalRecords,
+      totalQuantity: salesHistory.totalQuantity,
+      totalPrice: parseFloat(salesHistory.totalPrice.toFixed(2)),
+      salesHistory: salesHistory.salesHistory,
+    });
+  } catch (err) {
+    console.error("Error fetching per item sales history:", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
 
 module.exports = {
@@ -302,4 +347,5 @@ module.exports = {
   activeSales,
   flashReport,
   hourlyReport,
+  perItemSalesHistory,
 };

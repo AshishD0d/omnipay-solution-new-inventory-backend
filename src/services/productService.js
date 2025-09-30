@@ -215,8 +215,7 @@ const getCategoriesWithProducts = async (CategoryId) => {
 const getProductById = async (itemId) => {
   try {
     const pool = await poolPromise;
-    const productResult = await pool.request()
-      .input("ItemID", sql.Int, itemId)
+    const productResult = await pool.request().input("ItemID", sql.Int, itemId)
       .query(`
         SELECT 
           ItemID, Name, UPC, Additional_Description, ItemCost, ChargedCost,
@@ -231,9 +230,9 @@ const getProductById = async (itemId) => {
       return null;
     }
     const product = productResult.recordset[0];
-    const bulkPricingResult = await pool.request()
-      .input("ItemID", sql.Int, itemId)
-      .query(`
+    const bulkPricingResult = await pool
+      .request()
+      .input("ItemID", sql.Int, itemId).query(`
         SELECT 
           BulkPricingID, ItemID, Quantity, Pricing, DiscountType
         FROM BulkPricing
@@ -265,7 +264,7 @@ const deleteProductById = async (itemId) => {
         .query("DELETE FROM Items WHERE ItemID = @ItemID");
 
       await transaction.commit();
-      return result.rowsAffected[0]; 
+      return result.rowsAffected[0];
     } catch (err) {
       await transaction.rollback();
       throw err;
@@ -278,28 +277,43 @@ const deleteProductById = async (itemId) => {
 // Service: fetch product names and IDs
 const getproductNameandID = async () => {
   try {
-    const pool = await poolPromise; 
+    const pool = await poolPromise;
     const result = await pool
       .request()
       .query("SELECT ItemID, Name FROM Items WHERE IsActive = 1 ORDER BY Name");
-    return result.recordset; 
+    return result.recordset;
   } catch (err) {
     throw err;
-  } 
+  }
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
+// Service: generate PDF of all items
+const generateAllItemsPDF = async () => {
+  try {
+    const pool = await poolPromise;
+    const result = await pool.request().query(` SELECT 
+       i.ItemID AS id,
+       i.Name AS ItemName ,
+       i.UPC,
+       i.ItemCost,
+       i.ChargedCost,
+       i.InStock,
+       i.VendorName,
+       i.CaseCost,
+       i.NumberInCase,
+       i.SalesTax,
+       c.Name AS CategoryName,
+       i.Pack,
+       i.IsManual
+     FROM Items i
+     LEFT JOIN Categorymaster c ON i.CategoryID = c.CategoryID
+     WHERE i.IsActive = 1
+     ORDER BY i.Name`);
+    return result.recordset;
+  } catch (err) {
+    throw err;
+  }
+};
 
 module.exports = {
   getAllProducts,
@@ -309,5 +323,6 @@ module.exports = {
   getCategoriesWithProducts,
   getProductById,
   deleteProductById,
-  getproductNameandID
+  getproductNameandID,
+  generateAllItemsPDF,
 };

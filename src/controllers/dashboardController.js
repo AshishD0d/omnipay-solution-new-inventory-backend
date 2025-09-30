@@ -9,7 +9,7 @@ const liveSalesTrend = async (req, res) => {
       message: data.length > 0 ? "Live sales trend fetched successfully" : "No sales data found",
       chartName: "Live Sales Trend",
       data: data.map(row => ({
-        time: row.HourSlot,
+        time: row.InvoiceTime,
         amount: parseFloat(row.TotalAmount),
         totalItems: row.TotalItems
       }))
