@@ -21,5 +21,7 @@ router.post('/getProductById', userAuth, productController.getProductById);
 router.post('/delete', userAuth, productController.deleteProduct);
 // GET /api/products/productNameandID
 router.get('/productNameandID', userAuth, productController.productNameandID);
+// GET /api/products/allItemPDF
+router.get('/allItemPDF', userAuth, productController.allItemPDF);
 
 module.exports = router;

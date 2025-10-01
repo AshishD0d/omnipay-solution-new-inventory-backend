@@ -5,15 +5,16 @@ const getLiveSalesTrend = async () => {
   try {
     const pool = await poolPromise;
     const result = await pool.request().query(`
-      SELECT 
-        FORMAT(CreatedDateTime, 'yyyy-MM-dd HH:00') AS HourSlot,
-        SUM(GrandTotal) AS TotalAmount,
-        SUM(TotalQty) AS TotalItems
-      FROM InvoiceHeader
-      WHERE IsVoided = 0
-        AND CAST(CreatedDateTime AS DATE) = CAST(GETDATE() AS DATE)
-      GROUP BY FORMAT(CreatedDateTime, 'yyyy-MM-dd HH:00')
-      ORDER BY HourSlot;
+    SELECT
+    RIGHT('00' + CAST((DATEPART(HOUR, CreatedDateTime) / 2) * 2 AS VARCHAR), 2) 
+        + ':00' AS InvoiceTime,           
+    SUM(GrandTotal) AS TotalAmount,
+    SUM(TotalQty) AS TotalItems
+    FROM InvoiceHeader
+    WHERE IsVoided = 0
+      AND CAST(CreatedDateTime AS DATE) = CAST(GETDATE() AS DATE)
+    GROUP BY (DATEPART(HOUR, CreatedDateTime) / 2) * 2
+    ORDER BY (DATEPART(HOUR, CreatedDateTime) / 2) * 2;
     `);
     return result.recordset;
   } catch (err) {
@@ -24,7 +25,7 @@ const getLiveSalesTrend = async () => {
 // Service to fetch top selling items today
 const getTopSellingItemsToday = async () => {
   try {
-    const pool = await poolPromise; 
+    const pool = await poolPromise;
     const result = await pool.request().query(`
         SELECT TOP (5)
         IL.ItemId,
@@ -41,8 +42,5 @@ const getTopSellingItemsToday = async () => {
     throw err;
   }
 };
-
-
-
 
 module.exports = { getLiveSalesTrend, getTopSellingItemsToday };

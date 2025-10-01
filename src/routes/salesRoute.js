@@ -15,6 +15,8 @@ router.get('/activeSales', userAuth, salesController.activeSales);
 router.post('/flashReport', userAuth, salesController.flashReport);
 // POST /api/sales/hourlyReport
 router.post('/hourlyReport', userAuth, salesController.hourlyReport);
+// POST /api/sales/perItemSalesHistory
+router.post('/perItemSalesHistory', userAuth, salesController.perItemSalesHistory);
 
 
 module.exports = router;
