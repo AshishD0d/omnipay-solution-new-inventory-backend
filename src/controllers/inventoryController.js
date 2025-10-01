@@ -95,9 +95,36 @@ const inventoryTracking = async (req, res) => {
   }
 };
 
+// Controller to void an invoice
+const voideInvoice = async (req, res) => {
+  try {
+    const { InvoiceCode, VoidedBy } = req.body;
+    if (!InvoiceCode  || !VoidedBy) {
+      return res.status(400).json({
+        success: false,
+        message: "InvoiceCode and VoidedBy is required",
+      });
+    }
+    const result = await inventoryService.toVoidInvoice(InvoiceCode, VoidedBy);
+    if (result.success) {
+      res.status(200).json({
+        success: true,
+        message: "Invoice voided successfully",
+      });
+    }
+  } catch (err) {
+    console.error("Error voiding invoice:", err);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+
 module.exports = {
   lowStockAlert,
   dropedItems,
   totalInventory,
   inventoryTracking,
+  voideInvoice,
 };

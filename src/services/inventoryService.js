@@ -45,7 +45,7 @@ const getDropedItems = async () => {
 
     return {
       count: result.recordset.length,
-      data: result.recordset
+      data: result.recordset,
     };
   } catch (err) {
     throw err;
@@ -67,12 +67,21 @@ const getTotalInventory = async () => {
 };
 
 // Service: fetch inventory tracking data
-const getInventoryTrackingData = async ({ trackingType, productID, fromDate, toDate }) => {
+const getInventoryTrackingData = async ({
+  trackingType,
+  productID,
+  fromDate,
+  toDate,
+}) => {
   try {
     const pool = await poolPromise;
     const request = pool.request();
     request.input("productID", sql.Int, productID || null);
-    request.input("FromDate", sql.DateTime, fromDate ? new Date(fromDate) : null);
+    request.input(
+      "FromDate",
+      sql.DateTime,
+      fromDate ? new Date(fromDate) : null
+    );
     request.input("ToDate", sql.DateTime, toDate ? new Date(toDate) : null);
 
     let query = "";
@@ -137,11 +146,56 @@ const getInventoryTrackingData = async ({ trackingType, productID, fromDate, toD
   }
 };
 
+// Service: void an invoice
+const toVoidInvoice = async (InvoiceCode, VoidedBy) => {
+  try {
+    const pool = await poolPromise;
+     // Step 1: Find InvoiceId
+    const invoiceResult = await pool
+      .request()
+      .input("InvoiceCode", sql.NVarChar, InvoiceCode)
+      .query("SELECT InvoiceId FROM InvoiceHeader WHERE InvoiceCode = @InvoiceCode");
+
+    if (invoiceResult.recordset.length === 0) {
+      return { message: "Invoice not found" };
+    }
+
+    const invoiceId = invoiceResult.recordset[0].InvoiceId;
+
+    // Step 2: Update InvoiceHeader
+    await pool
+      .request()
+      .input("InvoiceId", sql.Int, invoiceId)
+      .input("VoidedBy", sql.NVarChar, VoidedBy)
+      .query(`
+        UPDATE InvoiceHeader
+        SET IsVoided = 1, VoidedOn = GETDATE(), VoidedBy = @VoidedBy
+        WHERE InvoiceId = @InvoiceId
+      `);
+
+    // Step 3: Update DroppedItem for Items
+    await pool
+      .request()
+      .input("InvoiceId", sql.Int, invoiceId)
+      .query(`
+        UPDATE i
+        SET i.DroppedItem = ISNULL(i.DroppedItem, 0) + il.Quantity
+        FROM Items i
+        INNER JOIN InvoiceLine il ON i.ItemID = il.ItemId
+        WHERE il.InvoiceId = @InvoiceId
+      `);
+
+    return { success: true };
+  } catch (err) {
+    throw err;
+  }
+};
 
 
-
-
-
-
-
-module.exports = { getLowStockItems, getDropedItems, getTotalInventory, getInventoryTrackingData };
+module.exports = {
+  getLowStockItems,
+  getDropedItems,
+  getTotalInventory,
+  getInventoryTrackingData,
+  toVoidInvoice,
+};

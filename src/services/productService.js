@@ -91,9 +91,10 @@ const updateProduct = async (product) => {
     const pool = await poolPromise;
     transaction = new sql.Transaction(pool);
     await transaction.begin();
-
+    
     const request = new sql.Request(transaction);
-
+    const salesTaxBit = (product.Sales_Tax === 1 || product.Sales_Tax === "1" || product.Sales_Tax === true) ? 1 : 0;
+    
     request.input("ItemID", sql.Int, product.ItemID);
     request.input("Name", sql.NVarChar(sql.MAX), product.Name);
     request.input("UPC", sql.VarChar(500), product.UPC);
@@ -104,7 +105,7 @@ const updateProduct = async (product) => {
     );
     request.input("ItemCost", sql.Decimal(12, 2), product.ItemCost || 0);
     request.input("ChargedCost", sql.Decimal(12, 2), product.ChargedCost || 0);
-    request.input("Sales_Tax", sql.Bit, product.Sales_Tax || 0);
+    request.input("Sales_Tax", sql.Bit, salesTaxBit);
     request.input("InStock", sql.Int, product.InStock || 0);
     request.input("VendorName", sql.NVarChar(sql.MAX), product.VendorName);
     request.input("CaseCost", sql.Decimal(12, 2), product.CaseCost || 0);

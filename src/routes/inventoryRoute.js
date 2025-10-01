@@ -11,5 +11,7 @@ router.get('/dropedItems', userAuth, inventoryController.dropedItems);
 router.get('/totalCount', userAuth, inventoryController.totalInventory);
 // POST /api/inventory/inventoryTracking
 router.post('/inventoryTracking', userAuth, inventoryController.inventoryTracking);
+// POST /api/inventory/voidInvoice
+router.post('/voidInvoice', userAuth, inventoryController.voideInvoice);
 
 module.exports = router;
